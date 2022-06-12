@@ -2,17 +2,17 @@
 
 ## Bid Strategy
 
-In most paper introduce First-Price Sealed-Bid Auction,
-there often comes up a strategy that, if there are n people in auction, then everyone take the same strategy, bid (n-1)/n * expect value.
-However, in this case we don't know how many bidders are there in this auction, so I comes up another idea.
+In most paper introduce First-Price Sealed-Bid Auction,<br>
+there often comes up a strategy that, if there are n people in auction, then everyone take the same strategy, bid (n-1)/n * expect value.<br>
+However, in this case we don't know how many bidders are there in this auction, so I comes up another idea.<br>
 
-Avg = (budget / impression_remain) will be the highest price as the expect value.
-Assume that the price of the bidders between Avg and floor_price is uniform distribution.
-Pr[winning a request] = (price - floor_price)/(Avg - floor_price)
-And Expect vaue V is also (price - floor_price)/(Avg - floor_price)
+Avg = (budget / impression_remain) will be the highest price as the expect value.<br>
+Assume that the price of the bidders between Avg and floor_price is uniform distribution.<br.
+Pr[winning a request] = (price - floor_price)/(Avg - floor_price)<br>
+And Expect vaue V is also (price - floor_price)/(Avg - floor_price)<br>
 
-I would suppose after the remains requests, I reach the value impression_remain
-That is, (price - floor_price)/(Avg - floor_price) * estimated_traffic >= impression_remain
+I would suppose after the remains requests, I reach the value impression_remain<br>
+That is, (price - floor_price)/(Avg - floor_price) * estimated_traffic >= impression_remain<br>
 So price = impression_remain * (average - floor_price) / estimated_traffic + floor_price;
 
 ## System Diagram
