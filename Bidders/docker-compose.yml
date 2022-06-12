@@ -1,0 +1,45 @@
+version: "3"
+
+networks:
+  RTB-bidder:
+    driver: bridge
+  RTB-connection:
+    external: true
+
+services:
+  bidders:
+    restart: always
+    container_name: bidders
+    build: 
+      context: ../
+      args:
+        - DEFAULT_PATH=${DEFAULT_PATH}
+        - CONTAINER=Bidders
+    ports:
+      - "${BIDDER_PORT}:${BIDDER_PORT}"
+    env_file:
+      - .env
+    volumes:
+      - "./:/usr/src/app/src"
+    networks:
+      - RTB-bidder
+      - RTB-connection
+  redis:
+    image: redis:6-alpine
+    restart: always
+    networks:
+      RTB-bidder:
+        aliases:
+          - "redis"
+    ports:
+      - 6379:6379
+  redis-commander:
+    hostname: redis-commander
+    image: rediscommander/redis-commander:latest
+    restart: always
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    networks:
+      - RTB-bidder
+    ports:
+      - 8081:8081
